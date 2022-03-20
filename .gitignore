@@ -1,0 +1,24 @@
+# Ignore Lighting (Will need rebuild in new project)
+# ===============
+LightingData.asset
+LightingData.asset.meta
+
+# Ignore Reflection Probe (Will need rebuild in new project)
+# =======================
+*.exr
+*.exr.meta
+
+# Ignore Everything
+# =================
+/*
+
+# Except for these:
+# =================
+!/.gitattributes
+!/.gitignore
+!/LICENSE
+!/*.md
+!/[Aa]ssets
+!/[Pp]ackages
+!/[Pp]rojectSettings
+!/[Uu]serSettings
