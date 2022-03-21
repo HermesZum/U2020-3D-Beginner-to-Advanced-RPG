@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace U3Gear.Library.Engine.Locomotion
+namespace U3Gear.Library.Engine.Navigation
 {
     /// <summary>
     /// Base class for control the player
     /// </summary>
-    public abstract class BasePlayerController : MonoBehaviour
+    public abstract class BaseNavigationCtrl : MonoBehaviour
     {
         [SerializeField]
         private float speed = 3; // speed of the player
