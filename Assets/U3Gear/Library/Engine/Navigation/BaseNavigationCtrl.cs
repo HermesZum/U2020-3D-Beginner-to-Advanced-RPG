@@ -20,10 +20,9 @@ namespace U3Gear.Library.Engine.Navigation
         private Quaternion _rotation; // rotation of the player
 
         /// <summary>
-        /// Start is called on the frame when a script is enabled
-        /// just before any of the Update methods are called the first time.
+        /// Awake is called when the script instance is being loaded.
         /// </summary>
-        private void Start()
+        private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>(); // initiates the reference to the rigid body
         }
