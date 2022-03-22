@@ -7,39 +7,34 @@ namespace U3Gear.Library.Engine.Navigation
     /// </summary>
     public abstract class BaseNavigationCtrl : MonoBehaviour
     {
-        [SerializeField]
-        private float speed = 3; // speed of the player
-
-        [SerializeField]
-        private float rotationSpeed = 9; // rotation speed of the player
-
-        private Rigidbody _rigidbody; // rigidbody that is attached to the player
+        private float Speed { get; set; } = 3; // speed of the player
+        private float RotationSpeed { get; set; } = 9; // rotation speed of the player
+        private Rigidbody RigidBody { get; set; } // rigidbody that is attached to the player
+        private Vector3 Movement { get; set; } // movement position of the player
+        private Quaternion Rotation { get; set; } // rotation of the player
         
-        private Vector3 _movement; // movement position of the player
-
-        private Quaternion _rotation; // rotation of the player
-
         /// <summary>
         /// Awake is called when the script instance is being loaded.
         /// </summary>
-        private void Awake()
+        protected virtual void Awake()
         {
-            _rigidbody = GetComponent<Rigidbody>(); // initiates the reference to the rigid body
+            RigidBody = GetComponent<Rigidbody>(); // initiates the reference to the rigid body
         }
         
         /// <summary>
         /// Fixed update the player position and velocity
         /// </summary>
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             var horizontalInput = Input.GetAxis("Horizontal"); // horizontal position of the player
             var verticalInput = Input.GetAxis("Vertical"); // vertical position of the player
-            _movement = new Vector3(horizontalInput, 0, verticalInput); // movement direction
-            _movement.Normalize(); // normalize movement direction
-            var direction = Vector3.RotateTowards(transform.forward, _movement, Time.fixedDeltaTime * rotationSpeed, 0); // locate player rotation direction
-            _rotation = Quaternion.LookRotation(direction); // player rotation with the specified forward and upwards directions.
-            _rigidbody.MovePosition(_rigidbody.position + _movement * speed * Time.fixedDeltaTime); // rigidbody movement position
-            _rigidbody.MoveRotation(_rotation); // rigidbody rotation with the specified direction
+            Movement = new Vector3(horizontalInput, 0, verticalInput); // movement direction
+            Movement.Normalize(); // normalize movement direction
+            var interval = Time.fixedDeltaTime;
+            var direction = Vector3.RotateTowards(transform.forward, Movement, interval * RotationSpeed, 0); // locate player rotation direction
+            Rotation = Quaternion.LookRotation(direction); // player rotation with the specified forward and upwards directions.
+            RigidBody.MovePosition(RigidBody.position + Movement * Speed * interval); // rigidbody movement position
+            RigidBody.MoveRotation(Rotation); // rigidbody rotation with the specified direction
         }
     }
 }

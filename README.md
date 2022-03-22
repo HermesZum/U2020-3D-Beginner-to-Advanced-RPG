@@ -1,4 +1,4 @@
-# U2020 - 3D - Beginner to RPG
+# U2020 - 3D - Beginner to Advanced RPG Game
 
 ## System Requirements for Unity 2020
 
@@ -14,7 +14,7 @@ For all operating systems, the Unity Editor is supported on workstations or lapt
 
 ## About
 
-Start with fundamentals and finish with an RPG game. Using Unity 2020 and C#.
+Start with fundamentals and finish with an advanced RPG game. Using Unity 2020 and C#.
 
 ## What you'll learn
 
