@@ -17,12 +17,11 @@ namespace U3Gear.Core.Engine.Cameras
         /// <summary>
         ///  Camera rotation direction relative to the player
         /// </summary>
-        private Vector3 Rotation
+        private Vector3 Angles
         {
             get => transform.eulerAngles;
             set => transform.eulerAngles = value;
         }
-
 
         /// <summary>
         ///     Awake is called when the script instance is being loaded.
@@ -34,16 +33,6 @@ namespace U3Gear.Core.Engine.Cameras
         }
 
         /// <summary>
-        ///     Start is called on the frame when a script is enabled
-        ///     just before any of the Update methods is called the first time.
-        ///     Like the Awake function, Start is called exactly once in the lifetime of the script but after
-        /// </summary>
-        protected override void Start()
-        {
-            Offset = Position - TargetPosition; // initial offset position of the camera
-        }
-
-        /// <summary>
         ///     LateUpdate is called after all Update functions have been called.
         ///     This is useful to order script execution.
         ///     For example a follow camera should always be implemented in LateUpdate
@@ -51,15 +40,18 @@ namespace U3Gear.Core.Engine.Cameras
         /// </summary>
         protected override void LateUpdate()
         {
-            var position = TargetPosition + Offset; // acquire the camera position
-            var angles = transform.eulerAngles; // get the angles from the transform
-            var rotation = new Vector3(
-                angles.x,
-                Target.transform.eulerAngles.y,
-                angles.z
-            ); // acquire the camera new position and rotation around the player
-            Position = position; // update the camera position
-            Rotation = rotation; // update the rotation
+            if(!Target) return; // if not have target then return
+            
+            var angles = Angles.y; // acquire current rotation angle y for the camera
+            var targetAngles = TargetAngles.y; // acquire current target rotation angle y for the target
+            // Same as Lerp but makes sure the values interpolate correctly when they wrap around 360 degrees.
+            // The parameter t is clamped to the range [0, 1]. Variables a and b are assumed to be in degrees.
+            angles = Mathf.LerpAngle(angles, targetAngles, 0.5f); // update current rotation angles for the camera relative to the target
+            Position = new Vector3(TargetPosition.x, TargetPosition.y + 5f, TargetPosition.z); // update current position for the camera
+            var rotation = Quaternion.Euler(0, angles, 0); // acquire current rotation around Y for the camera
+            var rotatedPosition = rotation * Vector3.forward; // acquire the camera rotation to the forward vector
+            Position -= rotatedPosition * 10; // update current position for the camera but with the camera behind it
+            transform.LookAt(Target.transform); // camera towards the target 
         }
     }
 }

@@ -6,22 +6,12 @@ namespace U3Gear.Library.Engine.Cameras
     {
         protected GameObject Target { get; set; } // The target object that will be used to control the camera
         protected Vector3 TargetPosition => Target.transform.position; // The position of the camera's target
-        protected Vector3 Offset { get; set; } // The offset of the camera
-
+        protected Vector3 TargetAngles => Target.transform.eulerAngles; // The rotation angles of the camera's target'
+        
         /// <summary>
         /// Awake is called when the script instance is being loaded.
         /// </summary>
         protected virtual void Awake()
-        {
-
-        }
-
-        /// <summary>
-        /// Start is called on the frame when a script is enabled
-        /// just before any of the Update methods is called the first time.
-        /// Like the Awake function, Start is called exactly once in the lifetime of the script but after
-        /// </summary>
-        protected virtual void Start()
         {
 
         }
