@@ -13,6 +13,16 @@ namespace U3Gear.Core.Engine.Cameras
             get => transform.position;
             set => transform.position = value;
         }
+        
+        /// <summary>
+        ///  Camera rotation direction relative to the player
+        /// </summary>
+        private Vector3 Rotation
+        {
+            get => transform.eulerAngles;
+            set => transform.eulerAngles = value;
+        }
+
 
         /// <summary>
         ///     Awake is called when the script instance is being loaded.
@@ -42,7 +52,14 @@ namespace U3Gear.Core.Engine.Cameras
         protected override void LateUpdate()
         {
             var position = TargetPosition + Offset; // acquire the camera position
+            var angles = transform.eulerAngles; // get the angles from the transform
+            var rotation = new Vector3(
+                angles.x,
+                Target.transform.eulerAngles.y,
+                angles.z
+            ); // acquire the camera new position and rotation around the player
             Position = position; // update the camera position
+            Rotation = rotation; // update the rotation
         }
     }
 }
