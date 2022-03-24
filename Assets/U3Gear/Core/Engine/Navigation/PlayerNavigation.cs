@@ -5,6 +5,6 @@ namespace U3Gear.Core.Engine.Navigation
 {
     internal sealed class PlayerNavigation : BaseNavigationCtrl
     {
- 
+
     }
 }
