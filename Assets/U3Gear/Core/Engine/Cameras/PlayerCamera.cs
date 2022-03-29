@@ -6,6 +6,8 @@ namespace U3Gear.Core.Engine.Cameras
 {
     internal sealed class PlayerCamera : BaseCamerasCtrl
     {
+        private static GameObject Player { get; set; } // reference to the player GameObject
+        private static GameObject Target { get; set; } // reference to target GameObject
         private static GameObject CmFreeLookCamera { get; set; } // reference to free look camera GameObject
         private CinemachineFreeLook FreeLookCamera { get; set; } // reference to Cinemachine free look camera
 
@@ -15,8 +17,12 @@ namespace U3Gear.Core.Engine.Cameras
         /// </summary>
         protected override void Awake()
         {
-            CmFreeLookCamera = GameObject.Find("/Cameras/CM FreeLookCamera"); // return to cache the CM FreeLookCamera GameObject
-            FreeLookCamera = CmFreeLookCamera.GetComponent<CinemachineFreeLook>(); // return to cache the CinemachineFreeLook component
+            Player = GameObject.Find("Player");
+            Target = GameObject.Find("/Player/Target"); // get to cache the CM FreeLookCamera GameObject
+            CmFreeLookCamera = GameObject.Find("/Cameras/CM FreeLookCamera"); // get to cache the CM FreeLookCamera GameObject
+            FreeLookCamera = CmFreeLookCamera.GetComponent<CinemachineFreeLook>(); // get to cache the CinemachineFreeLook component
+            FreeLookCamera.Follow = Player.transform; // get to cache the Player GameObject
+            FreeLookCamera.LookAt = Target.transform; // get to cache the Target GameObject
         }
         
         /// <summary>
