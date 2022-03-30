@@ -22,13 +22,9 @@ namespace U3Gear.Core.Engine.Navigation
         /// Fixed update the player position and velocity
         /// </summary>
         protected override void FixedUpdate()
-        {
-            var horizontalInput = Input.GetAxis("Horizontal"); // horizontal input of the player
-            var verticalInput = Input.GetAxis("Vertical"); // vertical input of the player
-            var movement = Vector3.zero; // initial movement position
-            movement.Set(horizontalInput, 0, verticalInput); // movement input
+        { // movement input
             var cameraRotation = MainCamera.transform.rotation; // reference to the main camera rotation
-            var targetDirection = cameraRotation * movement; // reference to the target direction
+            var targetDirection = cameraRotation * PlayerInput.Movement; // reference to the target direction
             targetDirection.y = 0; // target direction in the Y axis must be 0
             targetDirection.Normalize(); // target direction must have a magnitude of 1
             var interval = Time.fixedDeltaTime; // interval of time
